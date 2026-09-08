@@ -10,31 +10,87 @@ on:
 jobs:
   build-iso:
     runs-on: ubuntu-latest
+    # Give the job enough time (ISO builds can take 15-20 min)
+    timeout-minutes: 45
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build CarbonOS ISO with Docker Archiso
+      - name: Prepare output directory
         run: |
           mkdir -p output
+          echo "[+] Output directory created: $(pwd)/output"
+
+      - name: Build CarbonOS ISO inside Arch Linux Container
+        run: |
           docker run --privileged --rm \
-            -v $(pwd)/archiso-profile:/build/archiso-profile \
-            -v $(pwd)/output:/output \
-            -v $(pwd)/build.sh:/build/build.sh \
+            -v "$(pwd)/archiso-profile:/build/archiso-profile" \
+            -v "$(pwd)/output:/output" \
+            -v "$(pwd)/build.sh:/build/build.sh" \
             archlinux:base-devel bash -c "
-              pacman-key --init && \
-              pacman-key --populate archlinux && \
-              pacman -Syu --noconfirm archiso grub syslinux dosfstools squashfs-tools libisoburn mtools lynx reflector edk2-ovmf && \
-              chmod +x /build/build.sh && \
+              set -e
+
+              echo '=== [1/5] Initializing pacman keyring ==='
+              pacman-key --init
+              pacman-key --populate archlinux
+
+              echo '=== [2/5] Updating system and installing build tools ==='
+              pacman -Syu --noconfirm
+
+              echo '=== [3/5] Installing archiso and bootloader packages ==='
+              pacman -S --noconfirm \
+                archiso \
+                grub \
+                syslinux \
+                dosfstools \
+                squashfs-tools \
+                libisoburn \
+                mtools \
+                lynx \
+                reflector \
+                edk2-ovmf
+
+              echo '=== [4/5] Making build script executable ==='
+              chmod +x /build/build.sh
+
+              echo '=== [5/5] Building CarbonOS ISO ==='
               /build/build.sh
+
+              echo '=== Build complete. ISO files in /output: ==='
+              ls -lah /output/ || echo 'No files in /output'
             "
 
-      - name: List Generated ISO Files
-        run: ls -la output/
+      - name: Verify ISO was generated
+        run: |
+          echo "=== Files in output directory ==="
+          ls -lah output/ || echo "output/ is empty or does not exist"
 
-      - name: Upload CarbonOS ISO Artifact
+          # Fail clearly if no ISO was produced
+          ISO_COUNT=$(ls output/*.iso 2>/dev/null | wc -l)
+          if [ "$ISO_COUNT" -eq 0 ]; then
+            echo "ERROR: No .iso file was produced in the output directory!"
+            exit 1
+          fi
+
+          ISO_PATH=$(ls output/*.iso | head -1)
+          ISO_SIZE=$(du -sh "$ISO_PATH" | cut -f1)
+          echo "SUCCESS: ISO generated -> $ISO_PATH ($ISO_SIZE)"
+
+      - name: Upload CarbonOS ISO as GitHub Artifact
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: CarbonOS-x86_64-ISO
           path: output/*.iso
+          if-no-files-found: error
           retention-days: 14
+
+      - name: Upload CarbonOS ISO (always, even on partial failure)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CarbonOS-build-output-debug
+          path: output/
+          if-no-files-found: warn
+          retention-days: 5
