@@ -24,7 +24,7 @@ pacman -S --noconfirm \
     zsh zsh-syntax-highlighting zsh-autosuggestions \
     alacritty fastfetch \
     firefox mousepad thunar file-roller \
-    virtualbox-guest-utils xf86-video-vmware mesa
+    virtualbox-guest-utils mesa
 
 # 3. Create Live User 'carbon'
 echo "[3/6] Setting up live user 'carbon'..."

@@ -45,8 +45,6 @@ rsync
 
 # VirtualBox & VM Integration
 virtualbox-guest-utils
-xf86-video-vmware
-xf86-video-vesa
 mesa
 mesa-utils
 
