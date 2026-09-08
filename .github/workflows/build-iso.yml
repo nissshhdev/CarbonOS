@@ -22,7 +22,9 @@ jobs:
             -v $(pwd)/output:/output \
             -v $(pwd)/build.sh:/build/build.sh \
             archlinux:base-devel bash -c "
-              pacman -Syu --noconfirm archiso dosfstools squashfs-tools libisoburn mtools lynx reflector && \
+              pacman-key --init && \
+              pacman-key --populate archlinux && \
+              pacman -Syu --noconfirm archiso grub syslinux dosfstools squashfs-tools libisoburn mtools lynx reflector edk2-ovmf && \
               chmod +x /build/build.sh && \
               /build/build.sh
             "

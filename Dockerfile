@@ -1,9 +1,11 @@
 # CarbonOS Automated ISO Builder Container
 FROM archlinux:base-devel
 
-# Refresh keyring and install archiso and required build tools
-RUN pacman -Syu --noconfirm && \
-    pacman -S --noconfirm archiso git dosfstools squashfs-tools libisoburn mtools lynx reflector && \
+# Refresh keyring, initialize pacman keys, and install archiso + grub + build tools
+RUN pacman-key --init && \
+    pacman-key --populate archlinux && \
+    pacman -Syu --noconfirm && \
+    pacman -S --noconfirm archiso grub syslinux dosfstools squashfs-tools libisoburn mtools lynx reflector edk2-ovmf && \
     pacman -Scc --noconfirm
 
 # Set working directory

@@ -19,10 +19,15 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Ensure mkarchiso exists
+# Ensure pacman keyring is initialized
+echo "[*] Initializing Pacman keyring..."
+pacman-key --init 2>/dev/null || true
+pacman-key --populate archlinux 2>/dev/null || true
+
+# Ensure mkarchiso and grub exist
 if ! command -v mkarchiso &>/dev/null; then
     echo "[*] mkarchiso not found. Installing 'archiso' package..."
-    pacman -Syu --noconfirm archiso
+    pacman -Syu --noconfirm archiso grub syslinux dosfstools squashfs-tools libisoburn mtools
 fi
 
 # Clean previous work directory
