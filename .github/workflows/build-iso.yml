@@ -10,7 +10,6 @@ on:
 jobs:
   build-iso:
     runs-on: ubuntu-latest
-    # Give the job enough time (ISO builds can take 15-20 min)
     timeout-minutes: 45
 
     steps:
@@ -20,14 +19,14 @@ jobs:
       - name: Prepare output directory
         run: |
           mkdir -p output
-          echo "[+] Output directory created: $(pwd)/output"
+          echo "[+] Host workspace: $(pwd)"
+          echo "[+] Output directory: $(pwd)/output"
 
       - name: Build CarbonOS ISO inside Arch Linux Container
         run: |
           docker run --privileged --rm \
-            -v "$(pwd)/archiso-profile:/build/archiso-profile" \
-            -v "$(pwd)/output:/output" \
-            -v "$(pwd)/build.sh:/build/build.sh" \
+            -v "$(pwd):/workspace" \
+            -w /workspace \
             archlinux:base-devel bash -c "
               set -e
 
@@ -35,10 +34,10 @@ jobs:
               pacman-key --init
               pacman-key --populate archlinux
 
-              echo '=== [2/5] Updating system and installing build tools ==='
+              echo '=== [2/5] Updating system and package mirrors ==='
               pacman -Syu --noconfirm
 
-              echo '=== [3/5] Installing archiso and bootloader packages ==='
+              echo '=== [3/5] Installing archiso and build dependencies ==='
               pacman -S --noconfirm \
                 archiso \
                 grub \
@@ -52,32 +51,33 @@ jobs:
                 edk2-ovmf
 
               echo '=== [4/5] Making build script executable ==='
-              chmod +x /build/build.sh
+              chmod +x /workspace/build.sh
 
               echo '=== [5/5] Building CarbonOS ISO ==='
-              /build/build.sh
+              OUTPUT_DIR=/workspace/output ARCHISO_PROFILE=/workspace/archiso-profile /workspace/build.sh
 
-              echo '=== Build complete. ISO files in /output: ==='
-              ls -lah /output/ || echo 'No files in /output'
+              echo '=== Container finished. Checking /workspace/output: ==='
+              ls -lah /workspace/output/
             "
 
       - name: Verify ISO was generated
         run: |
-          echo "=== Files in output directory ==="
-          ls -lah output/ || echo "output/ is empty or does not exist"
+          echo "=== Host output directory contents ==="
+          ls -lah output/
 
-          # Fail clearly if no ISO was produced
           ISO_COUNT=$(ls output/*.iso 2>/dev/null | wc -l)
           if [ "$ISO_COUNT" -eq 0 ]; then
-            echo "ERROR: No .iso file was produced in the output directory!"
+            echo "ERROR: No .iso file found in output directory!"
             exit 1
           fi
 
-          ISO_PATH=$(ls output/*.iso | head -1)
-          ISO_SIZE=$(du -sh "$ISO_PATH" | cut -f1)
-          echo "SUCCESS: ISO generated -> $ISO_PATH ($ISO_SIZE)"
+          ISO_FILE=$(ls output/*.iso | head -1)
+          ISO_SIZE=$(du -sh "$ISO_FILE" | cut -f1)
+          echo "=========================================="
+          echo " [✓] SUCCESS: $ISO_FILE ($ISO_SIZE)"
+          echo "=========================================="
 
-      - name: Upload CarbonOS ISO as GitHub Artifact
+      - name: Upload CarbonOS ISO Artifact
         uses: actions/upload-artifact@v4
         if: success()
         with:
@@ -85,12 +85,3 @@ jobs:
           path: output/*.iso
           if-no-files-found: error
           retention-days: 14
-
-      - name: Upload CarbonOS ISO (always, even on partial failure)
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: CarbonOS-build-output-debug
-          path: output/
-          if-no-files-found: warn
-          retention-days: 5

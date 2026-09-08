@@ -17,14 +17,9 @@ pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"
 airootfs_image_tool_options=('-comp' 'zstd' '-Xcompression-level' '15')
 file_permissions=(
-    ["/etc/shadow"]="0:0:400"
-    ["/etc/gshadow"]="0:0:400"
-    ["/etc/sudoers.d"]="0:0:750"
-    ["/root"]="0:0:750"
-    ["/root/.automated_script.sh"]="0:0:755"
+    ["/usr/local/bin/carbon-init"]="0:0:755"
     ["/usr/local/bin/carbon-toggle-theme"]="0:0:755"
     ["/usr/local/bin/carbon-welcome"]="0:0:755"
-    ["/usr/local/bin/carbon-init"]="0:0:755"
     ["/etc/skel/.local/bin/carbon-toggle-theme"]="0:0:755"
     ["/etc/skel/.local/bin/carbon-welcome"]="0:0:755"
 )

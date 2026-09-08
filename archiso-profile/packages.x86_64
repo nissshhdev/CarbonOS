@@ -32,7 +32,8 @@ gparted
 # Network & Connectivity
 networkmanager
 network-manager-applet
-wireless_tools
+iw
+wireless-regdb
 wpa_supplicant
 dialog
 iproute2
