@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# CarbonOS Welcome Center (Zenity / GUI)
+
+if command -v zenity &>/dev/null; then
+    zenity --info --title="Welcome to CarbonOS" \
+           --width=520 --height=380 \
+           --text="<span size='x-large' weight='bold' color='#0f62fe'>Welcome to CarbonOS</span>\n\n\
+<b>IBM Carbon Design System Linux Distribution</b>\n\n\
+• <b>Drawer Menu:</b> Click 'Drawer' in the top-left to access applications.\n\
+• <b>Theme Toggle:</b> Switch between IBM Carbon Light &amp; Dark mode anytime via panel button or terminal.\n\
+• <b>Typography:</b> Powered by IBM Plex Sans, IBM Plex Mono &amp; IBM Plex Serif.\n\
+• <b>Terminal:</b> Pre-configured Zsh shell with IBM Blue prompt and fastfetch.\n\
+• <b>VirtualBox Integration:</b> Pre-installed guest utilities for auto-resizing &amp; clipboard sharing.\n\n\
+<i>Run <b>sudo archinstall</b> or click 'Install CarbonOS' to deploy to disk.</i>" 2>/dev/null || true
+else
+    echo "=== Welcome to CarbonOS (IBM Carbon Design System) ==="
+    echo "• Drawer Menu: Top-left panel button"
+    echo "• Theme Switcher: Run 'carbon-toggle-theme'"
+    echo "• Terminal: Zsh with IBM Plex Mono font"
+fi

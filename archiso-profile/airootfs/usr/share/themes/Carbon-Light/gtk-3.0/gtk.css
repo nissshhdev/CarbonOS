@@ -1,0 +1,179 @@
+/* IBM Carbon Design System - Carbon-Light GTK3 Theme */
+@define-color bg_color #ffffff;
+@define-color fg_color #161616;
+@define-color base_color #ffffff;
+@define-color text_color #161616;
+@define-color selected_bg_color #0f62fe;
+@define-color selected_fg_color #ffffff;
+@define-color tooltip_bg_color #161616;
+@define-color tooltip_fg_color #ffffff;
+
+* {
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    outline-color: #0f62fe;
+    outline-width: 2px;
+    outline-offset: -2px;
+}
+
+window, .background {
+    background-color: #ffffff;
+    color: #161616;
+}
+
+/* Headerbar & Titlebars */
+headerbar, .titlebar {
+    background-color: #f4f4f4;
+    color: #161616;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: none;
+    min-height: 40px;
+    padding: 0 6px;
+}
+
+headerbar .title {
+    font-weight: 600;
+    color: #161616;
+}
+
+/* IBM Buttons */
+button {
+    background-color: #f4f4f4;
+    color: #161616;
+    border: 1px solid #e0e0e0;
+    border-radius: 0px;
+    padding: 6px 14px;
+    font-weight: 500;
+    transition: all 120ms cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+button:hover {
+    background-color: #e5e5e5;
+    color: #161616;
+}
+
+button:active, button:checked {
+    background-color: #0f62fe;
+    color: #ffffff;
+    border-color: #0f62fe;
+}
+
+button.suggested-action, button.primary {
+    background-color: #0f62fe;
+    color: #ffffff;
+    border: 1px solid #0f62fe;
+}
+
+button.suggested-action:hover, button.primary:hover {
+    background-color: #0353e9;
+}
+
+button.suggested-action:active, button.primary:active {
+    background-color: #002d9c;
+}
+
+button.destructive-action {
+    background-color: #da1e28;
+    color: #ffffff;
+}
+
+button.destructive-action:hover {
+    background-color: #ba1b23;
+}
+
+/* Inputs & Text Entries */
+entry {
+    background-color: #f4f4f4;
+    color: #161616;
+    border: none;
+    border-bottom: 2px solid #8d8d8d;
+    border-radius: 0px;
+    padding: 8px 12px;
+    transition: border-bottom-color 150ms ease;
+}
+
+entry:focus {
+    border-bottom: 2px solid #0f62fe;
+    background-color: #ffffff;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: transparent;
+}
+
+scrollbar slider {
+    background-color: #c6c6c6;
+    border-radius: 0px;
+    min-width: 6px;
+    min-height: 6px;
+}
+
+scrollbar slider:hover {
+    background-color: #8d8d8d;
+}
+
+scrollbar slider:active {
+    background-color: #0f62fe;
+}
+
+/* XFCE Panel IBM Styling */
+.xfce4-panel {
+    background-color: #ffffff;
+    color: #161616;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.xfce4-panel button {
+    background-color: transparent;
+    color: #161616;
+    border-radius: 0px;
+}
+
+.xfce4-panel button:hover {
+    background-color: #f4f4f4;
+    color: #0f62fe;
+}
+
+.xfce4-panel button:checked, .xfce4-panel button:active {
+    background-color: #0f62fe;
+    color: #ffffff;
+}
+
+/* Whisker Menu / Drawer */
+#whiskermenu-window {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+#whiskermenu-window treeview {
+    background-color: #ffffff;
+    color: #161616;
+}
+
+#whiskermenu-window treeview:hover {
+    background-color: #f4f4f4;
+}
+
+#whiskermenu-window treeview:selected {
+    background-color: #0f62fe;
+    color: #ffffff;
+}
+
+/* Menus & Popovers */
+menu, .menu, popover {
+    background-color: #ffffff;
+    color: #161616;
+    border: 1px solid #e0e0e0;
+    padding: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+menuitem {
+    padding: 6px 12px;
+    border-radius: 0px;
+}
+
+menuitem:hover {
+    background-color: #0f62fe;
+    color: #ffffff;
+}

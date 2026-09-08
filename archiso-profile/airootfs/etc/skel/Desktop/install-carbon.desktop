@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Install CarbonOS
+Comment=Install CarbonOS to your disk or virtual machine
+Exec=alacritty --title "CarbonOS Installer" -e sudo archinstall
+Icon=system-software-install
+Terminal=false
+Categories=System;
+StartupNotify=true

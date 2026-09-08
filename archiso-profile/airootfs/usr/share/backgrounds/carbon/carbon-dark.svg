@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161616"/>
+      <stop offset="50%" stop-color="#121212"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f62fe"/>
+      <stop offset="100%" stop-color="#002d9c"/>
+    </linearGradient>
+    <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1192e8"/>
+      <stop offset="100%" stop-color="#00539a"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#262626" stroke-width="1" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  
+  <!-- Subtle Grid -->
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Carbon Geometric Shapes -->
+  <g opacity="0.85">
+    <!-- Blue Accent Block -->
+    <rect x="1150" y="240" width="380" height="380" fill="url(#blue-grad)" />
+    <!-- Cyan Accent Strip -->
+    <rect x="1430" y="520" width="190" height="190" fill="url(#cyan-grad)" opacity="0.9"/>
+    <!-- Gray Block -->
+    <rect x="1010" y="430" width="140" height="190" fill="#262626" opacity="0.7"/>
+    <!-- Dark Accent Block -->
+    <rect x="1150" y="620" width="280" height="90" fill="#393939" opacity="0.5"/>
+  </g>
+
+  <!-- Center-Left Typography / Branding -->
+  <text x="180" y="500" font-family="IBM Plex Sans, sans-serif" font-weight="700" font-size="72" fill="#ffffff" letter-spacing="-1">CarbonOS</text>
+  <text x="180" y="550" font-family="IBM Plex Mono, monospace" font-weight="400" font-size="22" fill="#0f62fe" letter-spacing="1">ARCH LINUX // IBM CARBON DESIGN SYSTEM</text>
+  <rect x="180" y="575" width="80" height="4" fill="#0f62fe"/>
+
+  <!-- Minimal Decorative Code Block -->
+  <text x="180" y="630" font-family="IBM Plex Mono, monospace" font-size="14" fill="#6f6f6f">$ carbonos --version</text>
+  <text x="180" y="655" font-family="IBM Plex Mono, monospace" font-size="14" fill="#8d8d8d">CarbonOS 2026.1 (x86_64) • IBM Plex • VirtualBox Ready</text>
+</svg>

@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# CarbonOS IBM Carbon Theme Switcher (Dark <-> Light)
+
+CURRENT_THEME=$(xfconf-query -c xsettings -p /Net/ThemeName 2>/dev/null || echo "Carbon-Dark")
+TARGET_MODE="${1:-toggle}"
+
+apply_light_theme() {
+    # 1. Update XFCE GTK & Window Themes
+    xfconf-query -c xsettings -p /Net/ThemeName -s "Carbon-Light" 2>/dev/null
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Light" 2>/dev/null || xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus" 2>/dev/null
+    xfconf-query -c xfwm4 -p /general/theme -s "Carbon-Light" 2>/dev/null
+
+    # 2. Update Wallpaper
+    if [ -f "/usr/share/backgrounds/carbon/carbon-light.png" ]; then
+        for prop in $(xfconf-query -c xfce4-desktop -l | grep 'image-path$'); do
+            xfconf-query -c xfce4-desktop -p "$prop" -s "/usr/share/backgrounds/carbon/carbon-light.png" 2>/dev/null
+        done
+    fi
+
+    # 3. Update Alacritty Terminal Theme
+    if [ -f "$HOME/.config/alacritty/alacritty-light.toml" ]; then
+        cp "$HOME/.config/alacritty/alacritty-light.toml" "$HOME/.config/alacritty/alacritty.toml" 2>/dev/null
+    fi
+
+    # 4. Update GTK settings.ini
+    mkdir -p "$HOME/.config/gtk-3.0"
+    cat <<EOF > "$HOME/.config/gtk-3.0/settings.ini"
+[Settings]
+gtk-theme-name=Carbon-Light
+gtk-icon-theme-name=Papirus-Light
+gtk-font-name=IBM Plex Sans 10
+gtk-cursor-theme-name=Adwaita
+gtk-application-prefer-dark-theme=0
+EOF
+
+    notify-send "CarbonOS" "Activated IBM Carbon Light Mode" -i weather-clear 2>/dev/null || true
+    echo "Switched to IBM Carbon Light Mode."
+}
+
+apply_dark_theme() {
+    # 1. Update XFCE GTK & Window Themes
+    xfconf-query -c xsettings -p /Net/ThemeName -s "Carbon-Dark" 2>/dev/null
+    xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark" 2>/dev/null || xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus" 2>/dev/null
+    xfconf-query -c xfwm4 -p /general/theme -s "Carbon-Dark" 2>/dev/null
+
+    # 2. Update Wallpaper
+    if [ -f "/usr/share/backgrounds/carbon/carbon-dark.png" ]; then
+        for prop in $(xfconf-query -c xfce4-desktop -l | grep 'image-path$'); do
+            xfconf-query -c xfce4-desktop -p "$prop" -s "/usr/share/backgrounds/carbon/carbon-dark.png" 2>/dev/null
+        done
+    fi
+
+    # 3. Update Alacritty Terminal Theme
+    if [ -f "$HOME/.config/alacritty/alacritty-dark.toml" ]; then
+        cp "$HOME/.config/alacritty/alacritty-dark.toml" "$HOME/.config/alacritty/alacritty.toml" 2>/dev/null
+    fi
+
+    # 4. Update GTK settings.ini
+    mkdir -p "$HOME/.config/gtk-3.0"
+    cat <<EOF > "$HOME/.config/gtk-3.0/settings.ini"
+[Settings]
+gtk-theme-name=Carbon-Dark
+gtk-icon-theme-name=Papirus-Dark
+gtk-font-name=IBM Plex Sans 10
+gtk-cursor-theme-name=Adwaita
+gtk-application-prefer-dark-theme=1
+EOF
+
+    notify-send "CarbonOS" "Activated IBM Carbon Dark Mode" -i weather-clear-night 2>/dev/null || true
+    echo "Switched to IBM Carbon Dark Mode."
+}
+
+if [ "$TARGET_MODE" = "light" ]; then
+    apply_light_theme
+elif [ "$TARGET_MODE" = "dark" ]; then
+    apply_dark_theme
+else
+    if [[ "$CURRENT_THEME" == *"Dark"* ]]; then
+        apply_light_theme
+    else
+        apply_dark_theme
+    fi
+fi

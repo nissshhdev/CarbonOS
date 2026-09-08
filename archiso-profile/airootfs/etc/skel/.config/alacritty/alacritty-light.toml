@@ -1,0 +1,58 @@
+# IBM Carbon Light Scheme for Alacritty
+[window]
+padding = { x = 14, y = 14 }
+decorations = "full"
+opacity = 0.98
+blur = false
+title = "Carbon Terminal"
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "IBM Plex Mono"
+style = "Regular"
+
+[font.bold]
+family = "IBM Plex Mono"
+style = "Bold"
+
+[font.italic]
+family = "IBM Plex Mono"
+style = "Italic"
+
+[colors.primary]
+background = "#ffffff"
+foreground = "#161616"
+
+[colors.cursor]
+text = "#ffffff"
+cursor = "#0f62fe"
+
+[colors.selection]
+text = "#ffffff"
+background = "#0f62fe"
+
+[colors.normal]
+black   = "#161616"
+red     = "#da1e28"
+green   = "#198038"
+yellow  = "#b28600"
+blue    = "#0f62fe"
+magenta = "#8a3ffc"
+cyan    = "#0072c3"
+white   = "#f4f4f4"
+
+[colors.bright]
+black   = "#525252"
+red     = "#fa4d56"
+green   = "#24a148"
+yellow  = "#f1c21b"
+blue    = "#4589ff"
+magenta = "#a56eff"
+cyan    = "#1192e8"
+white   = "#ffffff"
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500

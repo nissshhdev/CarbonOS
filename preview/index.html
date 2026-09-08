@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonOS — IBM Carbon Design System Arch Linux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <!-- Carbon Top Header / Status Bar (Panel) -->
+  <header class="carbon-panel" id="main-panel">
+    <div class="panel-left">
+      <!-- Drawer Menu Button -->
+      <button class="panel-btn drawer-btn" id="drawer-toggle-btn" aria-label="Open Drawer Applications Menu">
+        <svg class="carbon-icon" viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+          <path d="M4 6h24v2H4zm0 9h24v2H4zm0 9h24v2H4z"/>
+        </svg>
+        <span class="drawer-label">Drawer</span>
+      </button>
+
+      <div class="panel-divider"></div>
+
+      <!-- Quick Launchers -->
+      <button class="panel-btn icon-btn" id="launch-terminal" title="Carbon Terminal (IBM Plex Mono)">
+        <svg class="carbon-icon" viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+          <path d="M26 4H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 22H6V6h20zm-14-6.42L7.41 15 6 16.41 11.59 22 13 20.58l-1-1zM14 20h10v2H14z"/>
+        </svg>
+      </button>
+
+      <button class="panel-btn icon-btn" id="launch-files" title="Thunar File Manager">
+        <svg class="carbon-icon" viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+          <path d="M28 8H16.59l-3.3-3.3A2 2 0 0 0 11.88 4H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM4 6h7.88l3 3H4zM28 26H4V11h24z"/>
+        </svg>
+      </button>
+
+      <button class="panel-btn icon-btn" id="launch-browser" title="Firefox Browser">
+        <svg class="carbon-icon" viewBox="0 0 32 32" width="18" height="18" fill="currentColor">
+          <path d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12zm2-22.94V9a2 2 0 0 0-2 2v3h-2a2 2 0 0 0-2 2v3h2v4.94A10 10 0 0 1 6.13 14H9a2 2 0 0 0 2-2V9a2 2 0 0 0 2-2h3a9.9 9.9 0 0 1 2 .06z"/>
+        </svg>
+      </button>
+
+      <!-- Active Window Title in Panel -->
+      <div class="active-app-badge" id="active-task-label">
+        <span class="badge-dot"></span>
+        <span id="active-task-text">zsh — 80×24</span>
+      </div>
+    </div>
+
+    <div class="panel-right">
+      <!-- Theme Switcher (Dark / Light) -->
+      <button class="panel-btn theme-toggle-btn" id="theme-switcher-btn" title="Toggle Carbon Dark / Light Theme">
+        <svg class="carbon-icon icon-sun" viewBox="0 0 32 32" width="16" height="16" fill="currentColor">
+          <path d="M16 8a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14a6 6 0 1 1 6-6 6 6 0 0 1-6 6zM15 2h2v4h-2zm0 24h2v4h-2zm11.78-20.36 1.41 1.41-2.83 2.83-1.41-1.41zm-19.8 19.8 1.41 1.41-2.83 2.83-1.41-1.41zM26 15h4v2h-4zM2 15h4v2H2zm21.36 9.36 2.83 2.83-1.41 1.41-2.83-2.83zm-19.8-19.8 2.83 2.83-1.41 1.41-2.83-2.83z"/>
+        </svg>
+        <span id="theme-mode-text">Carbon Dark</span>
+      </button>
+
+      <!-- VirtualBox Status Indicator -->
+      <div class="vbox-badge" title="VirtualBox Guest Integration Active">
+        <span class="vbox-indicator"></span>
+        <span>VBox Guest</span>
+      </div>
+
+      <!-- Network -->
+      <div class="status-icon" title="Connected: Ethernet (NAT)">
+        <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor">
+          <path d="M30 15a1 1 0 0 0-.86-.5A14.9 14.9 0 0 0 16 10 14.9 14.9 0 0 0 2.86 14.5a1 1 0 0 0 .28 1.39l12 8a1 1 0 0 0 1.12 0l12-8A1 1 0 0 0 30 15z"/>
+        </svg>
+      </div>
+
+      <!-- Audio -->
+      <div class="status-icon" title="Volume: 100%">
+        <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor">
+          <path d="M14 6 7 11H2v10h5l7 5V6zm11.5 10a7.48 7.48 0 0 0-3.5-6.41v12.82A7.48 7.48 0 0 0 25.5 16z"/>
+        </svg>
+      </div>
+
+      <!-- Clock -->
+      <div class="panel-clock" id="clock-display">
+        Wed Sep 9 &nbsp; 00:15
+      </div>
+    </div>
+  </header>
+
+  <!-- Drawer Menu (Flyout / Dropdown) -->
+  <aside class="drawer-menu hidden" id="drawer-menu">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span class="drawer-logo-text">CarbonOS</span>
+        <span class="drawer-sub">Application Drawer</span>
+      </div>
+      <div class="drawer-search-box">
+        <input type="text" id="drawer-search" placeholder="Search applications..." autofocus>
+      </div>
+    </div>
+
+    <div class="drawer-content">
+      <div class="drawer-section-title">FAVORITES &amp; SYSTEM</div>
+      <div class="drawer-grid">
+        <div class="drawer-item" data-app="terminal">
+          <div class="app-icon terminal-icon">_</div>
+          <div class="app-info">
+            <span class="app-name">Carbon Terminal</span>
+            <span class="app-desc">Zsh Shell • IBM Plex Mono</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="installer">
+          <div class="app-icon install-icon"></div>
+          <div class="app-info">
+            <span class="app-name">Install CarbonOS</span>
+            <span class="app-desc">Archinstall Guided Deployer</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="theme">
+          <div class="app-icon theme-icon">◑</div>
+          <div class="app-info">
+            <span class="app-name">Theme Switcher</span>
+            <span class="app-desc">Toggle Dark / Light Mode</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="browser">
+          <div class="app-icon browser-icon">󰖟</div>
+          <div class="app-info">
+            <span class="app-name">Firefox Web Browser</span>
+            <span class="app-desc">Modern Web Engine</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="files">
+          <div class="app-icon files-icon">󰉋</div>
+          <div class="app-info">
+            <span class="app-name">Thunar Files</span>
+            <span class="app-desc">File &amp; Archive Management</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="editor">
+          <div class="app-icon editor-icon">󰷈</div>
+          <div class="app-info">
+            <span class="app-name">Mousepad</span>
+            <span class="app-desc">Code &amp; Text Editor</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="taskmanager">
+          <div class="app-icon monitor-icon">󰢮</div>
+          <div class="app-info">
+            <span class="app-name">Task Manager</span>
+            <span class="app-desc">System Monitor &amp; Resources</span>
+          </div>
+        </div>
+
+        <div class="drawer-item" data-app="vbox">
+          <div class="app-icon vbox-icon"></div>
+          <div class="app-info">
+            <span class="app-name">VirtualBox Setup Guide</span>
+            <span class="app-desc">VM Configuration Helper</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="carbon-btn-secondary" id="btn-open-terminal">Launch Terminal</button>
+      <button class="carbon-btn-primary" id="btn-close-drawer">Close Drawer</button>
+    </div>
+  </aside>
+
+  <!-- Desktop Workspace Area -->
+  <main class="desktop-workspace" id="workspace">
+    <!-- Desktop Shortcuts -->
+    <div class="desktop-icons">
+      <div class="desktop-icon-item" id="icon-install">
+        <div class="icon-glyph"></div>
+        <span>Install CarbonOS</span>
+      </div>
+      <div class="desktop-icon-item" id="icon-terminal">
+        <div class="icon-glyph">_</div>
+        <span>Carbon Terminal</span>
+      </div>
+      <div class="desktop-icon-item" id="icon-theme">
+        <div class="icon-glyph">◑</div>
+        <span>Toggle Theme</span>
+      </div>
+      <div class="desktop-icon-item" id="icon-docs">
+        <div class="icon-glyph">󰈙</div>
+        <span>Carbon Design Docs</span>
+      </div>
+    </div>
+
+    <!-- Active Window: Carbon Terminal (IBM Plex Mono) -->
+    <div class="carbon-window active-window" id="terminal-window">
+      <div class="window-titlebar">
+        <div class="titlebar-left">
+          <span class="titlebar-icon">_</span>
+          <span class="titlebar-title">carbon@carbon-os: ~ (zsh) — IBM Plex Mono</span>
+        </div>
+        <div class="titlebar-controls">
+          <button class="win-btn win-min" title="Minimize">—</button>
+          <button class="win-btn win-max" title="Maximize">□</button>
+          <button class="win-btn win-close" title="Close">✕</button>
+        </div>
+      </div>
+
+      <div class="terminal-body" id="terminal-output">
+        <div class="fastfetch-block">
+          <pre class="ascii-logo">
+<span class="c-blue">   ____           _                    ___  ____  </span>
+<span class="c-blue">  / ___|__ _ _ __| |__   ___  _ __    / _ \/ ___| </span>
+<span class="c-blue"> | |   / _` | '__| '_ \ / _ \| '_ \  | | | \___ \ </span>
+<span class="c-blue"> | |__| (_| | |  | |_) | (_) | | | | | |_| |___) |</span>
+<span class="c-blue">  \____\__,_|_|  |_.__/ \___/|_| |_|  \___/|____/ </span></pre>
+          <div class="sysinfo-list">
+            <div><span class="c-blue font-bold">carbon</span><span class="c-white">@</span><span class="c-cyan font-bold">carbon-os</span></div>
+            <div>------------------------------</div>
+            <div><span class="c-blue">OS:</span> CarbonOS Linux x86_64 (IBM Carbon Edition)</div>
+            <div><span class="c-blue">Host:</span> Oracle VM VirtualBox (vboxguest enabled)</div>
+            <div><span class="c-blue">Kernel:</span> 6.12.10-arch1-1</div>
+            <div><span class="c-blue">Uptime:</span> 12 mins</div>
+            <div><span class="c-blue">Shell:</span> zsh 5.9 (Carbon Theme)</div>
+            <div><span class="c-blue">DE:</span> XFCE 4.18 (Drawer Application Menu)</div>
+            <div><span class="c-blue">Theme:</span> <span id="term-theme-val">Carbon-Dark</span> [GTK3]</div>
+            <div><span class="c-blue">Font:</span> IBM Plex Sans 10pt</div>
+            <div><span class="c-blue">Term Font:</span> <span class="c-green font-bold">IBM Plex Mono 11pt</span></div>
+            <div><span class="c-blue">Primary:</span> <span class="ibm-color-chip" style="background:#0f62fe;"></span> #0f62fe (IBM Blue 60)</div>
+          </div>
+        </div>
+
+        <div class="terminal-history">
+          <div class="term-line prompt-line">
+            <span class="c-blue">┌──(</span><span class="c-white font-bold">carbon</span><span class="c-blue">@</span><span class="c-cyan">carbon-os</span><span class="c-blue">)-[</span><span class="c-white">~</span><span class="c-blue">]</span>
+          </div>
+          <div class="term-line prompt-cmd">
+            <span class="c-blue">└─</span><span class="c-blue font-bold">$ </span><span class="cmd-text">ls -la</span>
+          </div>
+          <div class="term-line term-result">
+drwxr-xr-x 8 carbon users 4096 Sep 09 00:10 .
+drwxr-xr-x 3 root   root  4096 Sep 09 00:00 ..
+-rw-r--r-- 1 carbon users  840 Sep 09 00:12 <span class="c-cyan">.zshrc</span>
+drwxr-xr-x 4 carbon users 4096 Sep 09 00:10 <span class="c-blue">.config</span>
+drwxr-xr-x 2 carbon users 4096 Sep 09 00:10 <span class="c-blue">Desktop</span>
+drwxr-xr-x 2 carbon users 4096 Sep 09 00:10 <span class="c-blue">Documents</span>
+drwxr-xr-x 2 carbon users 4096 Sep 09 00:10 <span class="c-blue">Downloads</span>
+-rwxr-xr-x 1 carbon users 1205 Sep 09 00:14 <span class="c-green">install-carbonOS</span>
+          </div>
+
+          <div class="term-line prompt-line">
+            <span class="c-blue">┌──(</span><span class="c-white font-bold">carbon</span><span class="c-blue">@</span><span class="c-cyan">carbon-os</span><span class="c-blue">)-[</span><span class="c-white">~</span><span class="c-blue">]</span>
+          </div>
+          <div class="term-line prompt-cmd">
+            <span class="c-blue">└─</span><span class="c-blue font-bold">$ </span><span class="interactive-input" contenteditable="true" spellcheck="false">carbon-toggle-theme</span><span class="cursor">█</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VirtualBox Guide Window -->
+    <div class="carbon-window secondary-window" id="vbox-window">
+      <div class="window-titlebar">
+        <div class="titlebar-left">
+          <span class="titlebar-icon"></span>
+          <span class="titlebar-title">VirtualBox Setup &amp; Deployment Guide</span>
+        </div>
+        <div class="titlebar-controls">
+          <button class="win-btn win-min">—</button>
+          <button class="win-btn win-max">□</button>
+          <button class="win-btn win-close" id="close-vbox-guide">✕</button>
+        </div>
+      </div>
+      <div class="vbox-guide-body">
+        <div class="vbox-header-box">
+          <h2 class="guide-h2">Running CarbonOS in Oracle VirtualBox</h2>
+          <p class="guide-p">Follow these recommended virtual machine settings for optimal performance and display auto-scaling:</p>
+        </div>
+
+        <div class="spec-cards">
+          <div class="spec-card">
+            <div class="spec-num">01</div>
+            <div class="spec-title">VM Type &amp; Version</div>
+            <div class="spec-val">Type: Linux<br>Version: Arch Linux (64-bit)</div>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-num">02</div>
+            <div class="spec-title">Memory &amp; CPU</div>
+            <div class="spec-val">RAM: 2048 MB (4096 MB recommended)<br>Processors: 2+ vCPUs</div>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-num">03</div>
+            <div class="spec-title">Display &amp; Graphics</div>
+            <div class="spec-val">Graphics Controller: VMSVGA<br>Video Memory: 128 MB<br>Enable 3D Acceleration: Checked</div>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-num">04</div>
+            <div class="spec-title">Boot &amp; Storage</div>
+            <div class="spec-val">Enable EFI: Optional (Supported)<br>Storage: Attach CarbonOS-x86_64.iso to IDE/SATA</div>
+          </div>
+        </div>
+
+        <div class="guide-build-box">
+          <h3 class="guide-h3">How to build the bootable ISO:</h3>
+          <div class="code-snippet">
+            <code># On Windows (with Docker):<br>.\build-iso.ps1<br><br># On Linux / WSL2:<br>sudo ./build.sh</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

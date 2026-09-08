@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f4f4f4"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+    <linearGradient id="blue-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f62fe"/>
+      <stop offset="100%" stop-color="#0043ce"/>
+    </linearGradient>
+    <pattern id="grid-light" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#e0e0e0" stroke-width="1" opacity="0.8"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg-light)"/>
+  
+  <!-- Subtle Grid -->
+  <rect width="1920" height="1080" fill="url(#grid-light)"/>
+
+  <!-- Carbon Geometric Shapes -->
+  <g opacity="0.85">
+    <rect x="1150" y="240" width="380" height="380" fill="url(#blue-grad-light)" />
+    <rect x="1430" y="520" width="190" height="190" fill="#1192e8" opacity="0.85"/>
+    <rect x="1010" y="430" width="140" height="190" fill="#e0e0e0" opacity="0.9"/>
+    <rect x="1150" y="620" width="280" height="90" fill="#c6c6c6" opacity="0.7"/>
+  </g>
+
+  <!-- Center-Left Typography / Branding -->
+  <text x="180" y="500" font-family="IBM Plex Sans, sans-serif" font-weight="700" font-size="72" fill="#161616" letter-spacing="-1">CarbonOS</text>
+  <text x="180" y="550" font-family="IBM Plex Mono, monospace" font-weight="400" font-size="22" fill="#0f62fe" letter-spacing="1">ARCH LINUX // IBM CARBON DESIGN SYSTEM</text>
+  <rect x="180" y="575" width="80" height="4" fill="#0f62fe"/>
+
+  <!-- Minimal Decorative Code Block -->
+  <text x="180" y="630" font-family="IBM Plex Mono, monospace" font-size="14" fill="#6f6f6f">$ carbonos --theme=light</text>
+  <text x="180" y="655" font-family="IBM Plex Mono, monospace" font-size="14" fill="#525252">CarbonOS 2026.1 (x86_64) • IBM Plex • VirtualBox Ready</text>
+</svg>

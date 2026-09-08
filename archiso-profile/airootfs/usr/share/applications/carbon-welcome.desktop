@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Welcome to CarbonOS
+Comment=Learn about CarbonOS and IBM Carbon Design System features
+Exec=carbon-welcome
+Icon=help-about
+Terminal=false
+Categories=System;Utility;
+StartupNotify=true

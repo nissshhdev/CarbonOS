@@ -1,0 +1,38 @@
+name: Build CarbonOS Bootable ISO
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build CarbonOS ISO with Docker Archiso
+        run: |
+          mkdir -p output
+          docker run --privileged --rm \
+            -v $(pwd)/archiso-profile:/build/archiso-profile \
+            -v $(pwd)/output:/output \
+            -v $(pwd)/build.sh:/build/build.sh \
+            archlinux:base-devel bash -c "
+              pacman -Syu --noconfirm archiso dosfstools squashfs-tools libisoburn mtools lynx reflector && \
+              chmod +x /build/build.sh && \
+              /build/build.sh
+            "
+
+      - name: List Generated ISO Files
+        run: ls -la output/
+
+      - name: Upload CarbonOS ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CarbonOS-x86_64-ISO
+          path: output/*.iso
+          retention-days: 14

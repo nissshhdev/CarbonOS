@@ -1,0 +1,11 @@
+NAME="CarbonOS"
+PRETTY_NAME="CarbonOS Linux (IBM Carbon Edition)"
+ID=carbonos
+ID_LIKE=arch
+BUILD_ID=rolling
+ANSI_COLOR="38;2;15;98;254"
+HOME_URL="https://github.com/carbon-os"
+DOCUMENTATION_URL="https://carbondesignsystem.com"
+SUPPORT_URL="https://github.com/carbon-os/carbonos"
+BUG_REPORT_URL="https://github.com/carbon-os/carbonos/issues"
+LOGO=archlinux

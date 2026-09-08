@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  carbonos-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: carbonos-iso-builder
+    privileged: true
+    volumes:
+      - ./output:/output
+      - ./archiso-profile:/build/archiso-profile
+    environment:
+      - ARCHISO_PROFILE=/build/archiso-profile
+      - OUTPUT_DIR=/output

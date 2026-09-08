@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Toggle Dark/Light Mode
+Comment=Switch between IBM Carbon Dark and Light themes
+Exec=carbon-toggle-theme
+Icon=preferences-desktop-theme
+Terminal=false
+Categories=Utility;Settings;
+StartupNotify=true

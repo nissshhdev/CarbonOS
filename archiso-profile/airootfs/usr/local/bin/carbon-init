@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# CarbonOS Live Environment Initialization Script
+set -e
+
+echo "[CarbonOS] Initializing Live Environment..."
+
+# 1. Create live user 'carbon' if not exists
+if ! id "carbon" &>/dev/null; then
+    useradd -m -g users -G wheel,audio,video,storage,optical,network,power,input -s /bin/zsh carbon
+    echo "carbon:carbon" | chpasswd
+    echo "root:root" | chpasswd
+fi
+
+# 2. Grant passwordless sudo to wheel group
+cat <<EOF > /etc/sudoers.d/99-carbon-live
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL
+carbon ALL=(ALL:ALL) NOPASSWD: ALL
+EOF
+chmod 0440 /etc/sudoers.d/99-carbon-live
+
+# 3. Synchronize skeleton files to /home/carbon and /root
+mkdir -p /home/carbon/.config /home/carbon/Desktop /home/carbon/.local/bin
+cp -r /etc/skel/. /home/carbon/
+cp -r /etc/skel/Desktop /home/carbon/
+chown -R carbon:users /home/carbon
+chmod +x /home/carbon/.local/bin/* 2>/dev/null || true
+chmod +x /usr/local/bin/* 2>/dev/null || true
+
+# 4. Configure LightDM for automatic login
+mkdir -p /etc/lightdm/lightdm.conf.d
+cat <<EOF > /etc/lightdm/lightdm.conf.d/autologin.conf
+[Seat:*]
+autologin-user=carbon
+autologin-user-timeout=0
+user-session=xfce
+greeter-session=lightdm-gtk-greeter
+EOF
+
+# 5. VirtualBox Guest Integration
+if systemctl list-unit-files | grep -q vboxservice; then
+    systemctl enable --now vboxservice.service 2>/dev/null || true
+fi
+
+# 6. NetworkManager
+systemctl enable --now NetworkManager.service 2>/dev/null || true
+
+echo "[CarbonOS] Live Initialization Complete."

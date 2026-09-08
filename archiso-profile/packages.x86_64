@@ -1,0 +1,123 @@
+# CarbonOS Packages Manifest
+
+# Base System
+base
+base-devel
+linux
+linux-headers
+linux-firmware
+amd-ucode
+intel-ucode
+sudo
+polkit
+systemd
+systemd-sysvcompat
+dbus
+
+# Boot & Filesystems
+grub
+efibootmgr
+dosfstools
+e2fsprogs
+btrfs-progs
+xfsprogs
+ntfs-3g
+parted
+gparted
+
+# Network & Connectivity
+networkmanager
+network-manager-applet
+wireless_tools
+wpa_supplicant
+dialog
+iproute2
+iputils
+curl
+wget
+git
+openssh
+rsync
+
+# VirtualBox & VM Integration
+virtualbox-guest-utils
+xf86-video-vmware
+xf86-video-vesa
+mesa
+mesa-utils
+
+# Display Server & Display Manager
+xorg-server
+xorg-xinit
+xorg-xrandr
+xorg-xdpyinfo
+xclip
+lightdm
+lightdm-gtk-greeter
+lightdm-gtk-greeter-settings
+accountsservice
+
+# Desktop Environment (Carbon XFCE Desktop)
+xfce4
+xfce4-goodies
+xfce4-whiskermenu-plugin
+xfce4-pulseaudio-plugin
+xfce4-screenshooter
+xfce4-taskmanager
+xfce4-notifyd
+xfce4-power-manager
+tumbler
+gvfs
+gvfs-mtp
+gvfs-smb
+
+# Fonts (IBM Carbon Design System)
+ttf-ibm-plex
+noto-fonts-emoji
+ttf-font-awesome
+
+# Shell & Command Line Experience
+zsh
+zsh-syntax-highlighting
+zsh-autosuggestions
+zsh-completions
+alacritty
+xfce4-terminal
+fastfetch
+starship
+fzf
+bat
+eza
+htop
+btop
+tree
+jq
+unzip
+unrar
+p7zip
+tar
+
+# Audio & Media
+pulseaudio
+pulseaudio-alsa
+pavucontrol
+alsa-utils
+mpv
+
+# CarbonOS Core Applications
+firefox
+mousepad
+thunar
+thunar-archive-plugin
+thunar-volman
+file-roller
+galculator
+ristretto
+
+# Installation & Archiso Tools
+archinstall
+arch-install-scripts
+reflector
+pacman-contrib
+libnewt
+zenity
